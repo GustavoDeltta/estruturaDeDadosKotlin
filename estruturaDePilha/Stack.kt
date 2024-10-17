@@ -4,34 +4,44 @@ class Stack<T>{
 
     private var size = 0
 
-    private var top: Node<T>? = null
+    private var bottom: Node<T>? = null
 
-    private class Node<T>(val value: T, val next: Node<T>?)
+    private class Node<T>(val value: T, var next: Node<T>? = null)
 
-    fun push(item: T): Boolean{
-        val newNode = Node(item, top)
-        top = newNode
+    fun push(value: T) {
+        if (bottom == null){
+            bottom = Node(value, null)
+        }else{
+            var aux = bottom
+            while (aux?.next != null) {
+                aux = aux.next
+            }
+            aux?.next = Node(value, null)
+        }
         size++
-        return true
     }
 
     fun pop(): Boolean{
-        if (top == null){
+        if (bottom == null){
             return false
         }else{
-            top = top?.next
+            var aux = bottom
+            while (aux?.next?.next != null){
+                aux = aux.next
+            }
+            aux?.next = null
             size--
             return true
         }
     }
 
-    fun peek(): T?{
-        return top?.value
+    fun bottom(): T?{
+        return bottom?.value
     }
 
     fun view(){
         print("[")
-        var aux = top
+        var aux = bottom
         while (aux != null){
             print(aux.value)
             aux = aux.next
@@ -47,10 +57,10 @@ class Stack<T>{
     }
 
     fun clear(): Boolean{
-        if (top == null){
+        if (bottom == null){
             return false
         }else{
-            top = null
+            bottom = null
             size = 0
             return true
         }
@@ -72,7 +82,7 @@ fun main(){
 
     println("Tamanho da Pilha: ${stack.size()}")
 
-    println("Elemento do topo: ${stack.peek()}")
+    println("Elemento inicial: ${stack.bottom()}")
 
     stack.pop()
 
