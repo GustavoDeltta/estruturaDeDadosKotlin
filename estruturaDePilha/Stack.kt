@@ -1,4 +1,4 @@
-package Stack
+package estruturaDePilha
 
 class Stack<T>{
 
@@ -31,16 +31,12 @@ class Stack<T>{
 
     fun view(){
         print("[")
-        if (top==null){
-            print("Empty")
-        }else{
-            var aux = top
-            while (aux != null){
-                print(aux.value)
-                aux = aux.next
-                if (aux!=null){
-                    print(", ")
-                }
+        var aux = top
+        while (aux != null){
+            print(aux.value)
+            aux = aux.next
+            if (aux!=null){
+                print(", ")
             }
         }
         print("]")
