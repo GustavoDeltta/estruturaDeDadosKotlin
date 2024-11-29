@@ -27,16 +27,38 @@ class Tree{
         root = addAux(root, Node(value))
     }
 
-    fun showInPreOrder(root: Node?){
+    private fun preOrder(root: Node?){
         if (root!=null){
             print("(${root.data}")
-            showInOrder(root.left)
-            showInOrder(root.right)
+            preOrder(root.left)
+            preOrder(root.right)
             print(")")
         }
+    }
+    fun showInPreOrder() {
+        return preOrder(root)
+    }
+
+    private fun searchValue(root: Node? ,value: Int){
+        // em desenvolvimento
     }
 }
 
 fun main(){
+    val arvoreBinaria = Tree()
+
+    arvoreBinaria.add(8)
+    arvoreBinaria.add(3)
+    arvoreBinaria.add(10)
+    arvoreBinaria.add(1)
+    arvoreBinaria.add(6)
+    arvoreBinaria.add(14)
+    arvoreBinaria.add(4)
+    arvoreBinaria.add(7)
+
+    arvoreBinaria.showInPreOrder()
+
+    val response = arvoreBinaria.search(6)
+    println("Existe o número seis na arvore? R= $response")
 
 }
