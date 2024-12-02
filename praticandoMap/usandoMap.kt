@@ -1,53 +1,45 @@
 package praticandoMap
 
+import com.sun.source.util.Plugin
+import org.w3c.dom.Text
 import kotlin.system.measureTimeMillis
 
-fun countRepeated(list: List<Int>){
-    val copyList = list.toMutableList()
-    while (copyList.isNotEmpty()){
-        val first = copyList[0]
-        val count = copyList.count() {it == first}
-//        println("$first - ${count}x")
-        copyList.removeAll{it == first}
+// Quest1: Construa um algoritmo que dada uma lista de números contabilize a ocorrência de repetições de valores.
+
+fun countNumbersRepeated(numbers: List<Int>): Map<Int, Int>{
+    val count = mutableMapOf<Int, Int>()
+    for (number in numbers){
+        count[number] = count.getOrDefault(number, 0) + 1
     }
+    return count
 }
 
-fun countRepeated2(list: List<Int>){
-    val map = mutableMapOf<Int, Int>()
-    for (c in list){
-        if (map.containsKey(c)){
-            val value = map[c]
-            if (value != null){
-                map[c] = value + 1
-            }else{
-                map[c] = 1
-            }
+// Quest2: Construa um algoritmo que dada uma frase contabilize a ocorrência de repetições dos caracteres.
+fun countCharRepeated(text: String): Map<Char, Int>{
+    val count = mutableMapOf<Char, Int>()
+    for (character in text){
+        if (character != ' '){
+           count[character] = count.getOrDefault(character, 0) + 1
         }
     }
-//    for ((key, value) in map){
-//        println("$key - ${value}x")
-//    }
+    return count
 }
 
+
+
 fun main(){
-    val limit = 100
-    val pairs = (2..limit step 2).toList()
-    val testList = (1..limit).toMutableList()
-    testList.addAll(pairs)
-    testList.sort()
 
-    val time1 = measureTimeMillis {
-        countRepeated(testList)
-    }
+    println("Quest1: Construa um algoritmo que dada uma lista de números contabilize a ocorrência de repetições de valores.")
+    val numbers = listOf(1, 2, 2, 3, 4, 4, 4)
+    val frequencyNumbers = countNumbersRepeated(numbers)
+    println(numbers)
+    println(frequencyNumbers)
+    println()
 
-    println("Time 1: ${time1}ms")
-    println("-".repeat(20))
-
-    val time2 = measureTimeMillis {
-        countRepeated(testList)
-    }
-
-    println("Time 2: ${time2}ms")
-    println("-".repeat(20))
+    println("Quest2: Construa um algoritmo que dada uma frase contabilize a ocorrência de repetições dos caracteres.")
+    val text = "Um dia irei!"
+    val frequencyChar = countCharRepeated(text)
+    println(text)
+    println(frequencyChar)
 
 }

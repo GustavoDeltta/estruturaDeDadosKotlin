@@ -58,7 +58,4 @@ fun main(){
 
     arvoreBinaria.showInPreOrder()
 
-    val response = arvoreBinaria.search(6)
-    println("Existe o número seis na arvore? R= $response")
-
 }
