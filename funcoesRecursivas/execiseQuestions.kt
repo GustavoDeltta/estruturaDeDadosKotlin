@@ -11,7 +11,8 @@ fun showDescending(value: Int) {
 }
 
 // 2 - Crie uma função recursiva que calcule e retorne o fatorial de um número inteiro N. (Concluída!)
-fun fatorial(value: Int): Int{
+fun fatorial(value: Int): Int{6
+
     var response = value
     if (value != 1){
         response *= fatorial(value-1)
