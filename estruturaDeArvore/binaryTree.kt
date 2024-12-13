@@ -17,7 +17,7 @@ class Tree{
         if (new.data>root.data){
             root.right = addAux(root.right, new)
         }
-        else if (new.data < root.data){
+        else if (new.data<root.data){
             root.left = addAux(root.left,new)
         }
         return root
@@ -38,10 +38,28 @@ class Tree{
     fun showInPreOrder() {
         return preOrder(root)
     }
-
-    private fun searchValue(root: Node? ,value: Int){
-        // em desenvolvimento
+    fun search(value: Int): Int? {
+        val response = searchValue(root,value)
+        return response?.data
     }
+    private fun searchValue(rootAux: Node? ,value: Int): Node? {
+        if (root == null){
+            return null
+        }
+        if (rootAux != null) {
+            if (value>rootAux.data){
+                return searchValue(rootAux.right, value)
+            }
+            else if (value<rootAux.data){
+                return searchValue(rootAux.left, value)
+            }
+        }
+        return rootAux
+    }
+
+    /*private fun delete(rootAux: Node?, value: Int): Node? {
+        AVEMARIA DOIDO!
+    }*/
 }
 
 fun main(){
@@ -57,5 +75,7 @@ fun main(){
     arvoreBinaria.add(7)
 
     arvoreBinaria.showInPreOrder()
+
+    println(arvoreBinaria.search(6))
 
 }
