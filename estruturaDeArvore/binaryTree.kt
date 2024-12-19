@@ -36,6 +36,7 @@ class Tree{
         }
     }
     fun showInPreOrder() {
+        println()
         return preOrder(root)
     }
     fun search(value: Int): Int? {
@@ -57,25 +58,71 @@ class Tree{
         return rootAux
     }
 
-    /*private fun delete(rootAux: Node?, value: Int): Node? {
-        AVEMARIA DOIDO!
-    }*/
+    private fun min(rootAux: Node): Node{ // fazer retornar o valor, ao invés do nó.
+        if (rootAux.left == null){
+            return rootAux
+        }
+        return min(rootAux.left!!)
+    }
+
+//    private fun max(rootAux: Node): Node{
+//        // retornar o maior valor da arvore.
+//    }
+    private fun deleteMain(rootAux: Node?, value: Int): Node?{
+        if (rootAux == null){
+            return null
+        }
+        if (value < rootAux.data){
+            rootAux.left = deleteMain(rootAux.left, value)
+        }else if (value > rootAux.data){
+            rootAux.right = deleteMain(rootAux.right, value)
+        }else{
+            // 1. Testar se o nó não tem nenhum filho
+            if (rootAux.left == null && rootAux.right == null){
+                return null
+            }
+            // 2. Testar se o nó tem apenas um filho.
+            if (rootAux.left == null){
+                return rootAux.right
+            }
+            if (rootAux.right == null){
+                return rootAux.left
+            }
+            // 3. O nó tem dois filhos.
+            val minNode = min(rootAux.right!!)
+            rootAux.data = minNode.data
+            rootAux.right = deleteMain(rootAux.right, minNode.data)
+        }
+        return rootAux
+    }
+    fun delete(value: Int){
+        root = deleteMain(root, value)
+    }
+
+//    fun showTravessiaEmLargura(){
+//        // usar uma fila!
+//    }
+
 }
 
 fun main(){
     val arvoreBinaria = Tree()
 
-    arvoreBinaria.add(8)
-    arvoreBinaria.add(3)
-    arvoreBinaria.add(10)
-    arvoreBinaria.add(1)
+    arvoreBinaria.add(2)
+    arvoreBinaria.add(9)
     arvoreBinaria.add(6)
-    arvoreBinaria.add(14)
-    arvoreBinaria.add(4)
-    arvoreBinaria.add(7)
+    arvoreBinaria.add(19)
+    arvoreBinaria.add(27)
+    arvoreBinaria.add(25)
+    arvoreBinaria.add(31)
+    arvoreBinaria.add(23)
 
     arvoreBinaria.showInPreOrder()
 
-    println(arvoreBinaria.search(6))
+    arvoreBinaria.delete(6)
+
+    arvoreBinaria.showInPreOrder()
+
+    arvoreBinaria.search(31)
 
 }
